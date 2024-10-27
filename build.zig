@@ -1,10 +1,14 @@
 const std = @import("std");
 
 pub fn build(b: *std.Build) !void {
+    const target = b.standardTargetOptions(.{});
+    const optimize = b.standardOptimizeOption(.{});
     const bundle = b.option(bool, "bundle", "Bundle SQLite") orelse false;
 
     const lib = b.addModule("fridge", .{
         .root_source_file = b.path("src/main.zig"),
+        .target = target,
+        .optimize = optimize,
     });
     lib.link_libc = true;
 
